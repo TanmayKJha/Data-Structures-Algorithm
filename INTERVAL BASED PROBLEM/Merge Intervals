@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        // Sort intervals based on their starting times
+        sort(intervals.begin(), intervals.end());
+
+        int n = intervals.size();
+        vector<vector<int>> result; // Stores merged intervals
+
+        int i = 0; // Current interval index
+
+        while (i < n) {
+            // Start with the current interval
+            vector<int> curr_interval = intervals[i];
+            int cs = curr_interval[0];
+            int ce = curr_interval[1];
+
+            // Merge overlapping intervals
+            while (i + 1 < n && intervals[i + 1][0] <= ce) {
+                ce = max(ce, intervals[i + 1][1]);
+                i++;
+            }
+
+            // Add the merged interval to the result
+            result.push_back({cs, ce});
+            i++; // Move to the next interval
+        }
+
+        return result;
+    }
+};
