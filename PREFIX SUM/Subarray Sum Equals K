@@ -1,0 +1,29 @@
+//BRUTE FORCE
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+
+        
+        unordered_map<int,int>prefix;
+        // I have 0 one time
+        prefix[0] = 1; //same thing can be written as prefix.insert({0,1})
+
+        int i = 0;
+        int j = 0;
+        int countSubarrays =0;
+        int cummSum = 0;
+        while(j<nums.size()){
+              cummSum +=nums[j];
+              if(prefix.find(cummSum-k)!=prefix.end()){
+                countSubarrays+= prefix[cummSum-k];
+              }
+              prefix[cummSum]++;
+
+              j++;
+
+        }
+
+        return countSubarrays; 
+             
+    }
+};
